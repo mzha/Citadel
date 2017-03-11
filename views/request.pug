@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1 Request Access
+  p Fill in the name (hash?) of the document you want access to.
+  br
+  form(name='request', action='/requestAccess', onsubmit="return validateForm()", method='post')
+    | File name:
+    br
+    |
+    input.fileinput(type='text', name='filename', placeholder='File Name')
+    br
+    |
+    input(type='submit', value='Submit')
+
+  script(src="/javascripts/request.js")
