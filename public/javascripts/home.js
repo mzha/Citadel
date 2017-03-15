@@ -26,7 +26,8 @@ window.onclick = function(event) {
 
 function validateForm() {
     var file = document.forms["request"]["filename"].value;
-    if (file == null || file == "") {
+    var name = document.forms["request"]["name"].value;
+    if (file == null || file == "" || name == null || name == "") {
       alert("Please fill out empty fields");
       return false;
     }
