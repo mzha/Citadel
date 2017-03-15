@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  #contract-modal.modal
+    .modal-content
+      .modal-header
+        span.close &times;
+        h2 Add a New Contract
+      .modal-body
+        p Pick a name for the contract and attach Ether to generate it.
+        form(name='contract', action='/contract_add', onsubmit="return validateForm()", method='post')
+          input.modal-input(type='text', name='name', placeholder='Contract Name')
+          br
+          input.modal-input(type='number', name='ether', value='5')
+          br
+          input(type='submit', value='Submit')
+      .modal-footer
+  if flash.error
+    .flash.error #{flash.error}
+  if flash.message
+    .flash.message #{flash.message}
+  .content
+    h1 Citadel
+    p Welcome, Administrator #{user.firstName}
+    br
+    button#modalButton(type='button') Add New Contract
+    br
+    .requests
+      h2 Contracts
+      each contract in contracts
+        .container
+          .text
+            h3 #{contract.name}
+            p #{contract.address}
+          if contract.pending
+            button(type='button' disabled) Creating...
+          else
+            button(type='button') Delete Contract
+
+  script(src="/javascripts/admin-home.js")

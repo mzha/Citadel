@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  #request-modal.modal
+    .modal-content
+      .modal-header
+        span.close &times;
+        h2 Request Access to a Document
+      .modal-body
+        p Enter a name for the file and its exact hash. (The name is only to help you remember which file you requested)
+        form(name='request', action='/requestAccess', onsubmit="return validateForm()", method='post')
+          input.modal-input(type='text', name='name', placeholder = 'File Name')
+          br
+          input.modal-input(type='text', name='filename', placeholder='File Hash')
+          br
+          input(type='submit', value='Submit')
+      .modal-footer
+  if flash.error
+    .flash.error #{flash.error}
+  if flash.message
+    .flash.message #{flash.message}
+  .content
+    h1 Citadel
+    p Welcome, #{user.firstName}
+    br
+    button#modalButton(type='button') Request Access
+    br
+    .requests
+      h2 Requests
+      each file in files
+        .container
+          .text
+            h3 #{file.name}
+            p #{file.hash}
+          if file.pending
+            button(type='button' disabled) Pending...
+          else
+            button(type='button') Download File
+
+  script(src="/javascripts/home.js")
