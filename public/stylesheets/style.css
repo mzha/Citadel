@@ -4,6 +4,16 @@ body {
   overflow: hidden;
 }
 
+/* Title Bar */
+.titleBar {
+  background-color: #4fcaff;
+  color: white;
+  font-size: 1.5em;
+  height: 2em;
+  line-height: 2em;
+  padding-left: 1em;
+}
+
 /* Content of page (excludes flashes and modals) */
 .content {
   padding: 50px;
