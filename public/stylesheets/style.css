@@ -1,6 +1,7 @@
 /* Affects literally everything */
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow: hidden;
 }
 
 /* Content of page (excludes flashes and modals) */
@@ -51,7 +52,29 @@ body {
   border-radius: 1em;
   padding-top: 1em;
   padding-bottom: 1em;
-  max-height: 50%;
+  max-height: 60vh;
+  overflow-y: scroll;
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,200,0.8);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(0,0,200,0.4);
 }
 
 /* Individual container for each pending request */
@@ -61,7 +84,10 @@ body {
   align-items: center;
   width: auto;
   border: 1px solid gray;
-  margin: 2px;
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .requests .text {
