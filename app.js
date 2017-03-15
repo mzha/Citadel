@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 var dbConfig = require('./public/javascripts/db.js');
 var mongoose = require('mongoose');
 // Connect to DB
@@ -60,5 +61,6 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
 
 module.exports = app;
