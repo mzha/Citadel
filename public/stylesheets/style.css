@@ -37,24 +37,11 @@ body {
 
 /* Text input fields on the login screen */
 .login-input {
-=======
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
-
-.fileinput {
->>>>>>> 256161a4b35da8dbcaa3d35078a4055b3ead0290
   outline: 0px;
   margin-top: 1em;
   margin-bottom: 1em;
   font-size: 1.5em;
 }
-<<<<<<< HEAD
 
 /* Container for all the pending requests */
 .requests {
