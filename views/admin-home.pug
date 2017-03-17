@@ -20,7 +20,7 @@ block content
   if flash.message
     .flash.message #{flash.message}
   .content
-    p Welcome, Administrator #{user.firstName}
+    p#name Welcome, Administrator #{user.firstName}
     br
     button#modalButton(type='button') Add New Contract
     br
