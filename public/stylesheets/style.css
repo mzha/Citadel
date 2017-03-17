@@ -1,23 +1,37 @@
 /* Affects literally everything */
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  overflow: hidden;
+  font: 14px "Lobster Two", Arial, Arial, sans-serif;
+  overflow: hidden;background-image: url(https://i.stack.imgur.com/YBfwz.png);
+  background-size: cover;
+
+}
+
+.background {
+  background-image: url(http://www.hdiphone6wallpapers.net/iphone-6-backgrounds/iphone-6-wallpapers-2/iphone-6-wallpapers-hd-486rrg23-1080x1920.jpg);
+  background-size: cover;
+  height: 100vh;
+  padding: 50px;
 }
 
 /* Title Bar */
 .titleBar {
-  background-color: #4fcaff;
+  background-color: black;
   color: white;
-  font-size: 1.5em;
+  font-size: 3em;
+  font: 60px "Lobster Two";
   height: 2em;
   line-height: 2em;
-  padding-left: 1em;
+  /*padding-left: 1em;*/
+  padding: 16px 20px 60px 60px;
 }
 
 /* Content of page (excludes flashes and modals) */
 .content {
   padding: 50px;
 }
+
+#name {font-size: 3em;}
+
 
 /* Applies to all flash */
 .flash {
@@ -28,14 +42,14 @@ body {
 
 /* Error flash */
 .error {
-  background-color: red;
-  color: white;
+  background-color: white;
+  color: #cc9900;
 }
 
 /* Message flash */
 .message {
-  background-color: green;
-  color: white;
+  background-color: white;
+  color: #cc9900;
 }
 
 /* Text input fields on the modal */
@@ -81,10 +95,10 @@ body {
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: rgba(0,0,200,0.8);
+    background: #806000;
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(0,0,200,0.4);
+	background: #806000;
 }
 
 /* Individual container for each pending request */
@@ -114,6 +128,9 @@ body {
 }
 
 .requests button {
+  border-color: black;
+  color: black;
+  background-color: #cc9900;
   display:inline-block;
   float: right;
   width: 20%;
@@ -177,14 +194,10 @@ body {
 
 .modal-header {
     padding: 2px 16px;
-    background-color: #5cb85c;
+    background-color: #000000;
     color: white;
 }
 
 .modal-body {padding: 2px 16px;}
 
-.modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-}
+
