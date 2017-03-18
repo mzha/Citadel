@@ -1,28 +1,71 @@
 /* Affects literally everything */
 body {
-  font: 14px "Lobster Two", Arial, Arial, sans-serif;
-  overflow: hidden;background-image: url(https://i.stack.imgur.com/YBfwz.png);
+  font-family: 'Josefin Sans', sans-serif;
+  overflow: hidden;
   background-size: cover;
 
 }
 
 .background {
-  background-image: url(http://www.hdiphone6wallpapers.net/iphone-6-backgrounds/iphone-6-wallpapers-2/iphone-6-wallpapers-hd-486rrg23-1080x1920.jpg);
+  background-image: url("http://cdn.pcwallart.com/images/taiwan-city-landscape-wallpaper-1.jpg");
   background-size: cover;
   height: 100vh;
   padding: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.float {
+  padding: 1em;
+  text-align: center;
+  border-radius: 1em;
+  width: 30%;
+  height: 70%;
+  background-color: white;
+  border: 2px solid #BFCDE0;
+}
+
+.float h1 {
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.float p {
+  font-size: 1.3em;
+  color: grey;
+}
+
+input[type="submit"] {
+  border : solid 2px #BFCDE0;
+	border-radius : 5px;
+	font-size : 20px;
+	color : #BFCDE0;
+	padding : 1px 17px 0px 17px;
+	background-color : #0a66c9;
+}
+
+input[type="submit"]:hover {
+  background-color: transparent;
+  border: solid 2px #939ead;
+  color: #939ead;
+}
+
+.line {
+  border: 1px solid lightgrey;
+  width: 90%;
+  margin: 0px auto;
 }
 
 /* Title Bar */
 .titleBar {
-  background-color: black;
+  background-color: #5D5D81;
   color: white;
-  font-size: 3em;
-  font: 60px "Lobster Two";
+  font-size: 2.3em;
   height: 2em;
   line-height: 2em;
-  /*padding-left: 1em;*/
-  padding: 16px 20px 60px 60px;
+  padding-left: 1em;
+  /*padding: 16px 20px 60px 60px;*/
 }
 
 /* Content of page (excludes flashes and modals) */
@@ -42,8 +85,8 @@ body {
 
 /* Error flash */
 .error {
-  background-color: white;
-  color: #cc9900;
+  background-color: red;
+  color: white;
 }
 
 /* Message flash */
@@ -62,10 +105,14 @@ body {
 
 /* Text input fields on the login screen */
 .login-input {
+  width: 70%;
   outline: 0px;
   margin-top: 1em;
   margin-bottom: 1em;
+  padding: 5px 5px 3px 5px;
   font-size: 1.5em;
+  border-radius:5px;
+  border: 2px solid grey;
 }
 
 /* Container for all the pending requests */
@@ -199,5 +246,3 @@ body {
 }
 
 .modal-body {padding: 2px 16px;}
-
-

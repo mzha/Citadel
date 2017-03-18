@@ -3,13 +3,15 @@ extends layout
 block content
   if flash.error
     .error #{flash.error}
-  .content
-    h1 Login to the Citadel
-    p Enter your credentials below. If you do not know these, contact your administrators for access.
-    br
-    form(name='login', action='/login', method='post')
-      input.login-input(type='text', name='username', placeholder='Username')
-      br
-      input.login-input(type='password', name='password', placeholder='Password')
-      br
-      input(type='submit', value='Submit')
+  .background
+    .float
+      h1 Enter the Citadel
+      p Type in your credentials below. If you do not know these, contact your administrators for access.
+      .line-holder
+        .line
+      form(name='login', action='/login', method='post')
+        input.login-input(type='text', name='username', placeholder='Username')
+        br
+        input.login-input(type='password', name='password', placeholder='Password')
+        br
+        input(type='submit', value='Login')
