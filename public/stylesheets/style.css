@@ -104,11 +104,16 @@ input[type="submit"]:hover {
 
 /* Text input fields on the login screen */
 .login-input {
+  width: 70%;
   outline: 0px;
   margin-top: 1em;
   margin-bottom: 1em;
+  padding: 5px 5px 3px 5px;
   font-size: 1.5em;
+  border-radius:5px;
+  border: 2px solid grey;
 }
+
 
 /* Container for all the pending requests */
 .requests {
