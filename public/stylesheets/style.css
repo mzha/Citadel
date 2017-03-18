@@ -192,6 +192,11 @@ input[type="submit"]:hover {
   font-weight: bold;
 }
 
+.titleBar a {
+  color: white;
+  text-decoration: none;
+}
+
 #modalButton {
   outline: none;
   border-color: black;
