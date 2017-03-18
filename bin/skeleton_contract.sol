@@ -25,7 +25,7 @@ contract Access{
 	mapping(bytes32 => file) idFiles;
 
 
-		 modifier onlyBy(User _account){
+		 modifier onlyBy(user _account){
 	       if (msg.sender != _account.user_addr) throw;
 	       _;
 	   }
@@ -73,9 +73,9 @@ contract Access{
 
 	//constructor
 	function Access(bytes32 key, bytes32 first, bytes32 last){
-		accesser = msg.sender;
+		accessers = msg.sender;
 		adminAddress = msg.sender; //assumes that the creator of contract is valid admin, can be changed
-		addUser(key, user(key,true,first,last,msg.sender));
+		addUser(key, first,last,msg.sender);
 		key = key;
 		contractStatus = true;
 		timeout = 3000;
@@ -83,8 +83,12 @@ contract Access{
 
 	//write Access for Admins
 
-	function addUser(bytes32 id, bytes32 first, bytes32 last, address user_addr) onlyifActive onlyByCreator{
-	 	idUsers[id] = user(id,first,last,user_addr);
+	function addUser(bytes32 id, bytes32 first, bytes32 last, address user_addr) onlyIfActive onlyByCreator{
+	 	if(msg.sender == adminAddress){
+	 	    idUsers[id] = user(id,true,first,last,user_addr);
+	 	}else{
+	 	    idUsers[id] = user(id,false,first,last,user_addr);
+	 	}
 	}
 
 	function getUserAddress(bytes32 id) returns (address){
@@ -92,17 +96,23 @@ contract Access{
 	}
 
 //modify so non admins have write file priveleges
-	function addFile(bytes32 id, bytes32 public_hash) onlyifActive onlyByCreator{
+	function addFile(bytes32 id, bytes32 public_hash) onlyIfActive onlyByCreator{
+	 
 	 	idFiles[id] = file(id,sha256(public_hash));
-	 	hash2files[idFiles[id]] = public_hash;
+	 	bytes32 access = idFiles[id].hash;
+	 	hash2file[access] = idFiles[id];
 	}
 
 	function getHashFile(bytes32 id) internal returns(bytes32) {
 		return idFiles[id].hash;
 	}
 
-	function getRequestfromId(bytes32 id,bytes32 fileid) returns(request) {
-		return acl[id][fileid];
+	function getRequestfromId(bytes32 id,bytes32 fileid) returns(bool) {
+		return acl[id][fileid].granted;
+	}
+	
+	function getRequestTimeStampfromId(bytes32 id,bytes32 fileid) returns(uint) {
+		return acl[id][fileid].timestamp;
 	}
 
 	function promote(bytes32 id) onlyByCreator {
@@ -113,7 +123,7 @@ contract Access{
 
 	}
 
-	function hash(public_key, uint hash_function)  internal returns (bytes32) {
+	function hash(bytes32 public_key, uint hash_function)  internal returns (bytes32) {
 		if(hash_function==1){
 		return keccak256(public_key);
 		}
@@ -127,12 +137,15 @@ contract Access{
     return timeout - now;
   }
 
-  function requestAccess(bytes32 user_id, bytes32 public_hash) onlyifActive{
+  function requestAccess(bytes32 user_id, bytes32 public_hash) onlyIfActive{
   		//
-  		if(hash2file[public_hash] != bytes32(0x00000000) ){
-  			acl[idUsers[user_id]][] = request(msg.sender,user_id,now,true);
+  		if(hash2file[public_hash].hash != bytes32(0x00000000) ){
+  		    file access = hash2file[public_hash];
+  		    user requester = idUsers[user_id];
+  			acl[user_id][access.id] = request(msg.sender,user_id,now,true);
   		} else{
-  			acl[idUsers[user_id]][hash2file[public_hash]] = request(msg.sender,user_id,now,false);
+  		    file access1 = hash2file[public_hash];
+  			acl[user_id][access1.id] = request(msg.sender,user_id,now,false);
   		}
   }
   function deactivateContract() onlyByCreator {
