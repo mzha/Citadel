@@ -1,17 +1,57 @@
 /* Affects literally everything */
 body {
-  font: 14px "Lobster Two", Arial, Arial, sans-serif;
-  
+  font-family: 'Josefin Sans', sans-serif;
   overflow: hidden;background-image: url(http://img1.liveinternet.ru/images/attach/c/1//60/146/60146306_1276185328_53845815_h123.gif);
   background-size: cover;
-
-
 }
 
 .background {
-
   height: 100vh;
   padding: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.float {
+  padding: 1em;
+  text-align: center;
+  border-radius: 1em;
+  width: 30%;
+  height: 70%;
+  background-color: white;
+  border: 2px solid #BFCDE0;
+}
+
+.float h1 {
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.float p {
+  font-size: 1.3em;
+  color: grey;
+}
+
+input[type="submit"] {
+  border : solid 2px #BFCDE0;
+	border-radius : 5px;
+	font-size : 20px;
+	color : #BFCDE0;
+	padding : 1px 17px 0px 17px;
+	background-color : #0a66c9;
+}
+
+input[type="submit"]:hover {
+  background-color: transparent;
+  border: solid 2px #939ead;
+  color: #939ead;
+}
+
+.line {
+  border: 1px solid lightgrey;
+  width: 90%;
+  margin: 0px auto;
 }
 
 
@@ -220,5 +260,3 @@ body {
 }
 
 .modal-body {padding: 2px 16px;}
-
-
