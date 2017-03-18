@@ -1,8 +1,8 @@
 pragma solidity ^0.4.0;
 
 /*
-access.challenge.addFile("1","1","1"{from: web3.eth.accounts[1], value: web3.toWei(5, "ether"), gas: 999999})
-scheme.requestAccess("1", "1" {from: web3.eth.accounts[1], gas: 999999})
+access.addFile("1","1","1"{from: web3.eth.accounts[1], value: web3.toWei(5, "ether"), gas: 999999})
+access.requestAccess("1", "1" {from: web3.eth.accounts[1], gas: 999999})
 */
 
 contract Access{
