@@ -54,7 +54,7 @@ contract Access{
 		address accesser;
 		bytes32 accesserid;
 		uint timestamp;
-		bool granted;		
+		bool granted;
 	}
 
 	struct file{
@@ -97,7 +97,7 @@ contract Access{
 
 //modify so non admins have write file priveleges
 	function addFile(bytes32 id, bytes32 public_hash) onlyIfActive onlyByCreator{
-	 
+
 	 	idFiles[id] = file(id,sha256(public_hash));
 	 	bytes32 access = idFiles[id].hash;
 	 	hash2file[access] = idFiles[id];
@@ -110,7 +110,7 @@ contract Access{
 	function getRequestfromId(bytes32 id,bytes32 fileid) returns(bool) {
 		return acl[id][fileid].granted;
 	}
-	
+
 	function getRequestTimeStampfromId(bytes32 id,bytes32 fileid) returns(uint) {
 		return acl[id][fileid].timestamp;
 	}
@@ -133,7 +133,7 @@ contract Access{
 		return sha256(public_key);
 	}
 
-	function checkTimeout() constant returns (uint) { 
+	function checkTimeout() constant returns (uint) {
     return timeout - now;
   }
 

@@ -100,10 +100,14 @@ input[type="submit"]:hover {
 
 /* Text input fields on the modal */
 .modal-input {
+  width: 70%;
   outline: 0px;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  font-size: 1.2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 5px 5px 3px 5px;
+  font-size: 1.5em;
+  border-radius:5px;
+  border: 2px solid grey;
 }
 
 /* Text input fields on the login screen */
@@ -233,17 +237,22 @@ input[type="submit"]:hover {
 
 /* Modal Content */
 .modal-content {
+    text-align: center;
     position: relative;
     background-color: #fefefe;
     margin: auto;
     padding: 0;
     border: 1px solid #888;
-    width: 60%;
+    width: 30%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s
+}
+
+.modal p {
+  color: grey;
 }
 
 
@@ -265,12 +274,11 @@ input[type="submit"]:hover {
     float: right;
     font-size: 28px;
     font-weight: bold;
-    border-radius: 25px;
 }
 
 .close:hover,
 .close:focus {
-    color: #000;
+    color: #fff;
     text-decoration: none;
     cursor: pointer;
 }
