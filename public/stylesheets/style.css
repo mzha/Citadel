@@ -60,8 +60,7 @@ input[type="submit"]:hover {
 .titleBar {
   background-color: black;
   color: white;
-  font-size: 1em;
-  font: 30px "Lobster Two";
+  font-size: 2em;
   height: 1em;
   line-height: 1em;
   /*padding-left: 1em;*/
