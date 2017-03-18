@@ -114,7 +114,6 @@ input[type="submit"]:hover {
   border: 2px solid grey;
 }
 
-
 /* Container for all the pending requests */
 .requests {
   margin: 0 auto;
@@ -185,6 +184,19 @@ input[type="submit"]:hover {
   background-color: #E0FFFF;
   display:inline-block;
   float: right;
+  width: 20%;
+  border-radius: 25px;
+  padding-bottom: 20px;
+  width: 100px;
+  height: 15px;
+  font-weight: bold;
+}
+
+#modalButton {
+  border-color: black;
+  color: black;
+  background-color: #E0FFFF;
+  display:inline-block;
   width: 20%;
   border-radius: 25px;
   padding-bottom: 20px;
