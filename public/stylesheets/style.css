@@ -1,71 +1,31 @@
 /* Affects literally everything */
 body {
-  font-family: 'Josefin Sans', sans-serif;
-  overflow: hidden;
+  font: 14px "Lobster Two", Arial, Arial, sans-serif;
+  
+  overflow: hidden;background-image: url(http://img1.liveinternet.ru/images/attach/c/1//60/146/60146306_1276185328_53845815_h123.gif);
   background-size: cover;
+
 
 }
 
 .background {
-  background-image: url("http://cdn.pcwallart.com/images/taiwan-city-landscape-wallpaper-1.jpg");
-  background-size: cover;
+
   height: 100vh;
   padding: 50px;
-  display: flex;
-  justify-content: center;
 }
 
-.float {
-  padding: 1em;
-  text-align: center;
-  border-radius: 1em;
-  width: 30%;
-  height: 70%;
-  background-color: white;
-  border: 2px solid #BFCDE0;
-}
 
-.float h1 {
-  text-align: center;
-  font-size: 3em;
-  font-weight: bold;
-}
-
-.float p {
-  font-size: 1.3em;
-  color: grey;
-}
-
-input[type="submit"] {
-  border : solid 2px #BFCDE0;
-	border-radius : 5px;
-	font-size : 20px;
-	color : #BFCDE0;
-	padding : 1px 17px 0px 17px;
-	background-color : #0a66c9;
-}
-
-input[type="submit"]:hover {
-  background-color: transparent;
-  border: solid 2px #939ead;
-  color: #939ead;
-}
-
-.line {
-  border: 1px solid lightgrey;
-  width: 90%;
-  margin: 0px auto;
-}
 
 /* Title Bar */
 .titleBar {
-  background-color: #5D5D81;
+  background-color: black;
   color: white;
-  font-size: 2.3em;
-  height: 2em;
-  line-height: 2em;
-  padding-left: 1em;
-  /*padding: 16px 20px 60px 60px;*/
+  font-size: 1em;
+  font: 30px "Lobster Two";
+  height: 1em;
+  line-height: 1em;
+  /*padding-left: 1em;*/
+  padding: 8px 10px 30px 30px;
 }
 
 /* Content of page (excludes flashes and modals) */
@@ -85,8 +45,8 @@ input[type="submit"]:hover {
 
 /* Error flash */
 .error {
-  background-color: red;
-  color: white;
+  background-color: white;
+  color: #cc9900;
 }
 
 /* Message flash */
@@ -105,14 +65,10 @@ input[type="submit"]:hover {
 
 /* Text input fields on the login screen */
 .login-input {
-  width: 70%;
   outline: 0px;
   margin-top: 1em;
   margin-bottom: 1em;
-  padding: 5px 5px 3px 5px;
   font-size: 1.5em;
-  border-radius:5px;
-  border: 2px solid grey;
 }
 
 /* Container for all the pending requests */
@@ -125,15 +81,17 @@ input[type="submit"]:hover {
   padding-bottom: 1em;
   max-height: 60vh;
   overflow-y: scroll;
+  background-image: url(https://image.shutterstock.com/z/stock-photo-grunge-splatter-paint-background-blue-on-white-paper-texture-281628809.jpg);
+
 }
+
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
     width: 12px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
+/* Track }::-webkit-scrollbar-track {
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
@@ -142,10 +100,10 @@ input[type="submit"]:hover {
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #806000;
+    background: #000066;
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: #806000;
+	background: #000066;
 }
 
 /* Individual container for each pending request */
@@ -154,11 +112,12 @@ input[type="submit"]:hover {
   justify-content: center;
   align-items: center;
   width: auto;
-  border: 1px solid gray;
+  border: 1px solid black;
   margin-left: 1em;
   margin-right: 1em;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  border-radius: 20px;
+
+
 }
 
 .requests .text {
@@ -179,10 +138,15 @@ input[type="submit"]:hover {
 .requests button {
   border-color: black;
   color: black;
-  background-color: #cc9900;
+  background-color: #E0FFFF;
   display:inline-block;
   float: right;
   width: 20%;
+  border-radius: 25px;
+  padding-bottom: 20px;
+  width: 100px;
+  height: 15px;
+  font-weight: bold;
 }
 
 /* The Modal (background)*/
@@ -215,6 +179,8 @@ input[type="submit"]:hover {
     animation-duration: 0.4s
 }
 
+
+
 /* Add Animation */
 @-webkit-keyframes animatetop {
     from {top:-300px; opacity:0}
@@ -232,6 +198,7 @@ input[type="submit"]:hover {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    border-radius: 25px;
 }
 
 .close:hover,
@@ -245,6 +212,13 @@ input[type="submit"]:hover {
     padding: 2px 16px;
     background-color: #000000;
     color: white;
+
+#modalButton(type='button') {
+  background-color: #E0FFFF;
+  border-color: black;
+  border-radius: 25px;
 }
 
 .modal-body {padding: 2px 16px;}
+
+
