@@ -167,10 +167,12 @@ input[type="submit"]:hover {
 }
 
 .requests h2 {
+  border-color: black;
   text-align: center;
 }
 
 .requests p {
+  border-color: black;
   color: gray;
 }
 
