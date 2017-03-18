@@ -1,11 +1,12 @@
 /* Affects literally everything */
 body {
   font-family: 'Josefin Sans', sans-serif;
-  overflow: hidden;background-image: url(http://img1.liveinternet.ru/images/attach/c/1//60/146/60146306_1276185328_53845815_h123.gif);
-  background-size: cover;
+  overflow: hidden;
 }
 
 .background {
+  background-image: url("http://cdn.pcwallart.com/images/taiwan-city-landscape-wallpaper-1.jpg");
+  background-size: cover;
   height: 100vh;
   padding: 50px;
   display: flex;
@@ -69,6 +70,9 @@ input[type="submit"]:hover {
 
 /* Content of page (excludes flashes and modals) */
 .content {
+  background-image: url(http://img1.liveinternet.ru/images/attach/c/1//60/146/60146306_1276185328_53845815_h123.gif);
+  background-size: cover;
+  height: 100vh;
   padding: 50px;
 }
 
