@@ -1,12 +1,11 @@
 /* Affects literally everything */
 body {
   font-family: 'Josefin Sans', sans-serif;
-  overflow: hidden;
+  overflow: hidden;background-image: url(http://img1.liveinternet.ru/images/attach/c/1//60/146/60146306_1276185328_53845815_h123.gif);
+  background-size: cover;
 }
 
 .background {
-  background-image: url("http://cdn.pcwallart.com/images/taiwan-city-landscape-wallpaper-1.jpg");
-  background-size: cover;
   height: 100vh;
   padding: 50px;
   display: flex;
@@ -70,9 +69,6 @@ input[type="submit"]:hover {
 
 /* Content of page (excludes flashes and modals) */
 .content {
-  background-image: url(http://img1.liveinternet.ru/images/attach/c/1//60/146/60146306_1276185328_53845815_h123.gif);
-  background-size: cover;
-  height: 100vh;
   padding: 50px;
 }
 
@@ -163,7 +159,7 @@ input[type="submit"]:hover {
   margin-left: 1em;
   margin-right: 1em;
   border-radius: 20px;
-
+  background-color: white;
 
 }
 
@@ -196,11 +192,6 @@ input[type="submit"]:hover {
   font-weight: bold;
 }
 
-.titleBar a {
-  color: white;
-  text-decoration: none;
-}
-
 #modalButton {
   outline: none;
   border-color: black;
@@ -208,8 +199,10 @@ input[type="submit"]:hover {
   background-color: #E0FFFF;
   display:inline-block;
   width: 20%;
-  border-radius: 25px;
-  padding-bottom: 20px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-radius: 40px;
+  padding-bottom: 40px;
   width: 100px;
   height: 15px;
   font-weight: bold;
@@ -279,10 +272,6 @@ input[type="submit"]:hover {
     background-color: #000000;
     color: white;
 
-#modalButton(type='button') {
-  background-color: #E0FFFF;
-  border-color: black;
-  border-radius: 25px;
-}
+
 
 .modal-body {padding: 2px 16px;}
