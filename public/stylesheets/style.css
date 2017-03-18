@@ -220,6 +220,10 @@ input[type="submit"]:hover {
   font-weight: bold;
 }
 
+#modalButton:hover {
+  background-color: #bad3d3;
+}
+
 /* The Modal (background)*/
 .modal {
     display: none;
