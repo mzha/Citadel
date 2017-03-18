@@ -193,6 +193,7 @@ input[type="submit"]:hover {
 }
 
 #modalButton {
+  outline: none;
   border-color: black;
   color: black;
   background-color: #E0FFFF;
