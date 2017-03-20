@@ -1,6 +1,18 @@
 var key = /* var of type bytes8 here */ ;
 var first = /* var of type bytes8 here */ ;
 var last = /* var of type bytes8 here */ ;
+
+/* function by which users request access 
+{"constant":false,"inputs":[{"name":"user_id","type":"bytes8"},{"name":"public_hash","type":"bytes32"}],"name":"requestAccess","outputs":[{"name":"","type":"bytes8"}],"payable":false,"type":"function"} */ 
+
+/*function by which users confirm access
+{"constant":false,"inputs":[{"name":"user_id","type":"bytes8"},{"name":"fileid","type":"bytes8"}],"name":"confirmAccess","outputs":[],"payable":false,"type":"function"} */
+
+/*function by which users add files
+/*{"constant":false,"inputs":[{"name":"id","type":"bytes8"},{"name":"public_hash","type":"bytes32"}],"name":"addFile","outputs":[],"payable":false,"type":"function"} */
+
+/*{"constant":false,"inputs":[{"name":"id","type":"bytes8"},{"name":"fileid","type":"bytes8"}],"name":"getRequestfromId","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"}*/
+
 var access_sol_accessContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"id","type":"bytes8"},{"name":"fileid","type":"bytes8"}],"name":"getRequestTimeStampfromId","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"checkTimeout","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"user_id","type":"bytes8"},{"name":"public_hash","type":"bytes32"}],"name":"requestAccess","outputs":[{"name":"","type":"bytes8"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"id","type":"bytes8"}],"name":"promote","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"id","type":"bytes8"},{"name":"fileid","type":"bytes8"}],"name":"getRequestfromId","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes8"},{"name":"","type":"bytes8"}],"name":"acl","outputs":[{"name":"accesser","type":"address"},{"name":"accesserid","type":"bytes8"},{"name":"timestamp","type":"uint256"},{"name":"confirmed","type":"bool"},{"name":"granted","type":"bool"},{"name":"status","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"user_id","type":"bytes8"},{"name":"fileid","type":"bytes8"}],"name":"confirmAccess","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"deactivateContract","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"id","type":"bytes8"},{"name":"first","type":"bytes8"},{"name":"last","type":"bytes8"},{"name":"user_addr","type":"address"}],"name":"addUser","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"id","type":"bytes8"},{"name":"public_hash","type":"bytes32"}],"name":"addFile","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"id","type":"bytes8"}],"name":"getUserAddress","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"inputs":[{"name":"key","type":"bytes8"},{"name":"first","type":"bytes8"},{"name":"last","type":"bytes8"}],"payable":false,"type":"constructor"}]);
 var access_sol_access = access_sol_accessContract.new(
    key,
