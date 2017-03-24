@@ -104,6 +104,7 @@ contract Access{
 	 	idFiles[id] = file(id,sha256(public_hash));
 	 	bytes32 access = idFiles[id].hash;
 	 	hash2file[access] = idFiles[id];
+	 	
 	}
 
 	function getHashFile(bytes32 id) internal returns(bytes32) {
@@ -147,7 +148,7 @@ contract Access{
   		    file access = hash2file[private_hash];
   		    user requester = idUsers[user_id];
   			acl[user_id][access.id] = request(msg.sender,user_id,now,false,true,false);
-  			return access.id;
+  			return bytes32(uint(access.id)-911);
   		} else{
   		    
   			return bytes32(0x00000000);
@@ -171,11 +172,13 @@ contract Access{
     return string(bytesStringTrimmed);
 }
   
-  function confirmAccess(bytes32 user_id, bytes32 fileid) onlyIfActive {
+  function confirmAccess(bytes32 user_id, bytes32 offset) onlyIfActive returns(bytes32) {
+      bytes32 fileid = bytes32(uint(offset)+911);
       acl[user_id][fileid].confirmed = true;
       if(acl[user_id][fileid].confirmed == true && acl[user_id][fileid].granted ==true ){
           acl[user_id][fileid].status = true;
       }
+      return fileid;
   }
   
   function deactivateContract() onlyByCreator {
