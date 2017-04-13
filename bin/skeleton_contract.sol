@@ -21,6 +21,10 @@ contract Access{
 	mapping(bytes32 => file) hash2file;
 	//maps user.id to other attributes
 	mapping(bytes32 => user) idUsers;
+	//all requests directly per user
+	mapping(bytes32 => request[]) requests;
+	//all requests directly per file
+	mapping(bytes32 => request[]) file2requests;
 
 	//maps a file.id to other file attributes
 	mapping(bytes32 => file) idFiles;
@@ -54,6 +58,7 @@ contract Access{
 	struct request{
 		address accesser;
 		bytes32 accesserid;
+		bytes32 fileid;
 		uint timestamp;
 		bool confirmed;
 		bool granted;	
@@ -141,14 +146,15 @@ contract Access{
     return timeout - now;
   }
 
-  function requestAccess(bytes32 user_id, bytes32 public_hash) onlyIfActive returns(bytes32){
+  function requestAccess(bytes32 user_id, bytes32 public_hash) onlyIfActive returns(bytes32[]){
   		//
   		bytes32 private_hash = sha256(public_hash);
   		if(hash2file[private_hash].hash != bytes32(0x00000000) ){
   		    file access = hash2file[private_hash];
   		    user requester = idUsers[user_id];
-  			acl[user_id][access.id] = request(msg.sender,user_id,now,false,true,false);
-  			return bytes32(uint(access.id)-911);
+  			acl[user_id][access.id] = request(msg.sender,user_id,access.id,now,false,true,false);
+  			
+  			return bytes32(uint(access.id));
   		} else{
   		    
   			return bytes32(0x00000000);
@@ -172,14 +178,21 @@ contract Access{
     return string(bytesStringTrimmed);
 }
   
-  function confirmAccess(bytes32 user_id, bytes32 offset) onlyIfActive returns(bytes32) {
-      bytes32 fileid = bytes32(uint(offset)+911);
-      acl[user_id][fileid].confirmed = true;
+  function confirmAccess(bytes32 user_id, bytes32 fileid, bool accepted) onlyIfActive onlyByCreator returns(bytes32) {
+      
+      acl[user_id][fileid].confirmed = accepted;
       if(acl[user_id][fileid].confirmed == true && acl[user_id][fileid].granted ==true ){
           acl[user_id][fileid].status = true;
+         requests[user_id].push(acl[user_id][fileid]);
+  		 file2requests[fileid].push(acl[user_id][fileid]);
+      }else{
+          requests[user_id].push(acl[user_id][fileid]);
+  		 file2requests[fileid].push(acl[user_id][fileid]);
       }
       return fileid;
   }
+  
+
   
   function deactivateContract() onlyByCreator {
       contractStatus = false;
