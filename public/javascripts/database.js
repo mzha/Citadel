@@ -1,5 +1,6 @@
 var File = require('../../models/file');
 var Contract = require('../../models/contract');
+var Document = require('../../models/doc');
 
 var makeHash = function(size) { //Helper function to make random hash for now
  var text = "";
@@ -31,6 +32,7 @@ module.exports = {
             newFile.name = name;
             newFile.hash = hash;
             newFile.pending = true;
+            newFile.approved = false;
 
             // save the user
             newFile.save(function(err) {
@@ -45,6 +47,15 @@ module.exports = {
     });
   },
 
+  changeFile: function(fileId, approved, done) {
+    File.findOneAndUpdate({_id: fileId}, {'approved': approved, 'pending': false}, {upsert:false}, function(err, file){
+      if (err){
+        return done(-1, null);
+      }
+      return done(1, file);
+    });
+  },
+
   getFiles: function(userId, done) {
     File.find({ 'userId': userId}, function(err, files) {
       if (err) {
@@ -52,6 +63,12 @@ module.exports = {
       } else {
         return done(0, files);
       }
+    });
+  },
+
+  deleteFile: function(fileId, done) {
+    File.remove({_id: fileId}, function(err) {
+      done();
     });
   },
 
@@ -97,6 +114,49 @@ module.exports = {
         return done(-1, null);
       } else {
         return done(0, contracts);
+      }
+    });
+  },
+
+  addDocument: function(name, content, users, done) {
+    Document.findOne({'name':name}, function(err, document) {
+      if (err){
+          console.log('Error in addDocument: '+err);
+          return done(-1, null);
+      }
+      // already exists
+      if (document) {
+          console.log('Document already exists');
+          return done(1, null);
+      } else {
+          var newDocument = new Document();
+
+          // set the file params
+          newDocument.name = name;
+          newDocument.content = content;
+          newDocument.access = users;
+
+          // save the user
+          newDocument.save(function(err) {
+              if (err){
+                  console.log('Error in saving document: '+err);
+                  throw err;
+              }
+              console.log('Document save succesful');
+              return done(0, newDocument);
+          });
+      }
+    });
+  },
+
+  getDocument: function(user_id, document_id, done) {
+    console.log(user_id + "," + document_id);
+    Document.where({_id: document_id}).findOne(function(err, document) {
+      console.log("document is " + document);
+      if (document.access.indexOf(user_id) >= 0) {
+        return done(1, document);
+      } else {
+        return done(-1, null);
       }
     });
   }

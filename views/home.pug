@@ -24,6 +24,8 @@ block content
     br
     button#modalButton(type='button') Request Access
     br
+    button#historyButton(type='button' onclick='downloadHistory("' + user.address + '")') Download History
+    br
     .requests
       h2 Requests
       each file in files
@@ -33,7 +35,10 @@ block content
             p #{file.hash}
           if file.pending
             button(type='button' disabled) Pending...
+          else if file.approved
+            button(type='button' onclick='downloadFile("' + file.hash + '")') Download File
           else
-            button(type='button') Download File
+            button(type='button' onclick='clearFile("' + file._id + '")') Rejected. Clear
 
   script(src="/javascripts/home.js")
+  script(src="/javascripts/logic.js")

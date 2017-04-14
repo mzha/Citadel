@@ -31,9 +31,12 @@ block content
           .text
             h3 #{contract.name}
             p #{contract.address}
-          if contract.pending
-            button(type='button' disabled) Creating...
-          else
-            button(type='button') Delete Contract
+          .buttons
+            if contract.pending
+              button(type='button' disabled) Creating...
+            else
+              button(type='button') Delete Contract
+            button(type='button' onclick='downloadHistory("' + contract.address + '")') History
 
   script(src="/javascripts/admin-home.js")
+  script(src="/javascripts/logic.js")

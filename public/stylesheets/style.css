@@ -164,8 +164,6 @@ input[type="submit"]:hover {
   margin-right: 1em;
   border-radius: 20px;
   background-color: white;
-
-
 }
 
 .requests .text {
@@ -186,17 +184,32 @@ input[type="submit"]:hover {
 }
 
 .requests button {
+  outline: none;
   border-color: black;
   color: black;
   background-color: #E0FFFF;
-  display:inline-block;
-  float: right;
   width: 20%;
   border-radius: 25px;
   padding-bottom: 20px;
   width: 100px;
   height: 15px;
   font-weight: bold;
+}
+
+.requests button:hover:enabled{
+  background-color: #b5cece;
+}
+
+.requests button:disabled {
+  background-color: #d9dbdb;
+  color: #7e7f7f;
+}
+
+.requests .buttons {
+  display: inline-block;
+  height: 100%;
+  width: 20%;
+  float:right;
 }
 
 .titleBar a {
@@ -219,6 +232,24 @@ input[type="submit"]:hover {
 }
 
 #modalButton:hover {
+  background-color: #bad3d3;
+}
+
+#historyButton {
+  outline: none;
+  border-color: black;
+  color: black;
+  background-color: #E0FFFF;
+  display:inline-block;
+  width: 20%;
+  border-radius: 25px;
+  padding-bottom: 20px;
+  width: 150px;
+  height: 15px;
+  font-weight: bold;
+}
+
+#historyButton:hover {
   background-color: #bad3d3;
 }
 

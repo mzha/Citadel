@@ -5,5 +5,6 @@ module.exports = mongoose.model('File',{
   userId: String,
   name: String,
   hash: String,
-  pending: Boolean
+  pending: Boolean,
+  approved: Boolean
 });
