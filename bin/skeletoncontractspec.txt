@@ -1,0 +1,21 @@
+Manager => Contract that calls that creates new access contracts
+
+contractkey is a key generated for each access contract. Stored in AccessMap.
+
+Manager.callAddFile(bytes32 contractkey, bytes32 id) -> adds a new file to the contract represented by contract key with a fileid of id
+
+Manager.callAddUser(bytes32 contractkey, bytes32 id, bytes32 name, address useraddr) -> adds a new user to the contract represented by contract key with a user id of id, a name of name, and an address of user addr
+
+Manager.callRequestAccess(bytes32 contractkey,bytes32 user_id, bytes32 file_id) -> requests access for user with an id of user_id to a file
+with id of file_id on contract with key contract key
+
+Manager.callConfirmAccess(bytes32 contractkey,bytes32 user_id, bytes32 fileid, bool accepted) -> confirms or denies access for user with an id of user_id to a file with id of file_id on contract with key contract key
+
+
+
+
+
+
+
+
+
