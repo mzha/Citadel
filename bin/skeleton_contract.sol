@@ -146,7 +146,7 @@ contract Access{
     return timeout - now;
   }
 
-  function requestAccess(bytes32 user_id, bytes32 public_hash) onlyIfActive returns(bytes32[]){
+  function requestAccess(bytes32 user_id, bytes32 public_hash) onlyIfActive returns(bytes32,bytes32){
   		//
   		bytes32 private_hash = sha256(public_hash);
   		if(hash2file[private_hash].hash != bytes32(0x00000000) ){
@@ -154,10 +154,10 @@ contract Access{
   		    user requester = idUsers[user_id];
   			acl[user_id][access.id] = request(msg.sender,user_id,access.id,now,false,true,false);
   			
-  			return bytes32(uint(access.id));
+  			return(user_id,access.id);
   		} else{
   		    
-  			return bytes32(0x00000000);
+  			return (bytes32(0x00000000),bytes32(0x00000000));
   		}
   }
   
@@ -191,6 +191,8 @@ contract Access{
       }
       return fileid;
   }
+  
+ 
   
 
   
