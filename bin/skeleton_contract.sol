@@ -7,18 +7,19 @@ scheme.requestAccess("1", "1" {from: web3.eth.accounts[1], gas: 999999})
 */
 
 contract Access{
-	address accessers;
+    address public contractAddress;
 	address adminAddress;
-	bytes32 key;
+    bytes32 adminkey;
+	bytes32 public contractkey;
 	bool contractStatus= true;
+
 
 	///user(id) to file.id) to request
 	mapping(bytes32 => mapping( bytes32 =>request)) public acl;
 
 	//used for before and after modifier
 	uint timeout;
-	//maps public hash that files are created with
-	mapping(bytes32 => file) hash2file;
+
 	//maps user.id to other attributes
 	mapping(bytes32 => user) idUsers;
 	//all requests directly per user
@@ -67,35 +68,36 @@ contract Access{
 
 	struct file{
 		bytes32 id;
-		bytes32 hash;
+		uint timestamp;
 	}
 
 	struct user{
 		bytes32 id;
 		bool isAdmin;
-		bytes32 first;
-		bytes32 last;
+		bytes32 name;
+
 		address user_addr;
 
 	}
 
 	//constructor
-	function Access(bytes32 key, bytes32 first, bytes32 last){
-		accessers = msg.sender;
+	function Access(bytes32 contractkey, bytes32 userkey, bytes32 name){
+	    adminkey = userkey;
 		adminAddress = msg.sender; //assumes that the creator of contract is valid admin, can be changed
-		addUser(key, first,last,msg.sender);
-		key = key;
+		addUser(userkey, name,msg.sender);
+		contractkey = contractkey;
+		contractAddress = this;
 		contractStatus = true;
 		timeout = 3000;
 	}
 
 	//write Access for Admins
 
-	function addUser(bytes32 id, bytes32 first, bytes32 last, address user_addr) onlyIfActive onlyByCreator{
+	function addUser(bytes32 id, bytes32 name, address user_addr) onlyIfActive onlyByCreator{
 	 	if(msg.sender == adminAddress){
-	 	    idUsers[id] = user(id,true,first,last,user_addr);
+	 	    idUsers[id] = user(id,true,name,user_addr);
 	 	}else{
-	 	    idUsers[id] = user(id,false,first,last,user_addr);
+	 	    idUsers[id] = user(id,false,name,user_addr);
 	 	}
 	}
 
@@ -104,17 +106,14 @@ contract Access{
 	}
 
 //modify so non admins have write file priveleges
-	function addFile(bytes32 id, bytes32 public_hash) onlyIfActive{
+	function addFile(bytes32 id) onlyIfActive{
 	 
-	 	idFiles[id] = file(id,sha256(public_hash));
-	 	bytes32 access = idFiles[id].hash;
-	 	hash2file[access] = idFiles[id];
+	 	idFiles[id] = file(id,now);
+	 
 	 	
 	}
 
-	function getHashFile(bytes32 id) internal returns(bytes32) {
-		return idFiles[id].hash;
-	}
+
 
 	function getRequestfromId(bytes32 id,bytes32 fileid) returns(bool) {
 		return acl[id][fileid].status;
@@ -125,36 +124,31 @@ contract Access{
 	}
 
 	function promote(bytes32 id) onlyByCreator {
-		idUsers[key].isAdmin = false;
+		idUsers[adminkey].isAdmin = false;
 		idUsers[id].isAdmin = true;
 		adminAddress = idUsers[id].user_addr;
 
 
 	}
+	function getContractAddress() returns (address){
+	    return contractAddress;
+	}
 
-	/* function hash(bytes32 public_key, uint hash_function)  internal returns (bytes32) {
-		if(hash_function==1){
-		return keccak256(public_key);
-		}
-		else if(hash_function ==2){
-		return sha3(public_key);
-		}
-		return sha256(public_key);
-	} */
+
 
 	function checkTimeout() constant returns (uint) { 
     return timeout - now;
   }
 
-  function requestAccess(bytes32 user_id, bytes32 public_hash) onlyIfActive returns(bytes32,bytes32){
+  function requestAccess(bytes32 user_id, bytes32 fileid) onlyIfActive returns(bytes32,bytes32){
   		//
-  		bytes32 private_hash = sha256(public_hash);
-  		if(hash2file[private_hash].hash != bytes32(0x00000000) ){
-  		    file access = hash2file[private_hash];
+  	    
+  		if(idFiles[fileid].id != bytes32(0x00000000) ){
+  		    
   		    user requester = idUsers[user_id];
-  			acl[user_id][access.id] = request(msg.sender,user_id,access.id,now,false,true,false);
+  			acl[user_id][fileid] = request(msg.sender,user_id,fileid,now,false,true,false);
   			
-  			return(user_id,access.id);
+  			return(user_id,fileid);
   		} else{
   		    
   			return (bytes32(0x00000000),bytes32(0x00000000));
@@ -200,4 +194,40 @@ contract Access{
       contractStatus = false;
     }
 
+}
+
+contract Manager {
+    mapping(bytes32=>address) access_map;
+    
+    function Manager(){}
+    
+    function createAccessContract (bytes32 userkey, bytes32 name) returns (bytes32){
+        bytes32 contractkey = sha256(userkey,name,msg.sender);
+        Access a = new Access(contractkey,userkey,name);
+         access_map[contractkey] = a.getContractAddress();
+         return(contractkey);
+    }
+    
+    function callAddFile(bytes32 contractkey,bytes32 id){
+        address Access_Contract = access_map[contractkey];
+        Access a = Access(Access_Contract);
+        a.addFile(id);
+    }
+    
+    function callAddUser(bytes32 contractkey, bytes32 id, bytes32 name, address user_addr){
+        address Access_Contract = access_map[contractkey];
+        Access a = Access(Access_Contract);
+        a.addUser(id, name,  user_addr);
+    }
+    function callRequestAccess(bytes32 contractkey,bytes32 user_id, bytes32 file_id){
+        address Access_Contract = access_map[contractkey];
+        Access a = Access(Access_Contract);
+        a.requestAccess(user_id,file_id);
+    }
+    function callConfirmAccess(bytes32 contractkey,bytes32 user_id, bytes32 fileid, bool accepted){
+        address Access_Contract = access_map[contractkey];
+        Access a = Access(Access_Contract);
+        a.confirmAccess(user_id, fileid, accepted);
+    }
+    
 }
