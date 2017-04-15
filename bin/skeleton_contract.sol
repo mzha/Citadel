@@ -74,14 +74,14 @@ contract Access{
 	struct user{
 		bytes32 id;
 		bool isAdmin;
-		bytes32 name;
+		string name;
 
 		address user_addr;
 
 	}
 
 	//constructor
-	function Access(bytes32 contractkey, bytes32 userkey, bytes32 name){
+	function Access(bytes32 contractkey, bytes32 userkey, string name){
 	    adminkey = userkey;
 		adminAddress = msg.sender; //assumes that the creator of contract is valid admin, can be changed
 		addUser(userkey, name,msg.sender);
@@ -93,7 +93,7 @@ contract Access{
 
 	//write Access for Admins
 
-	function addUser(bytes32 id, bytes32 name, address user_addr) onlyIfActive onlyByCreator{
+	function addUser(bytes32 id, string name, address user_addr) onlyIfActive onlyByCreator{
 	 	if(msg.sender == adminAddress){
 	 	    idUsers[id] = user(id,true,name,user_addr);
 	 	}else{
@@ -155,22 +155,7 @@ contract Access{
   		}
   }
   
-  function bytes32ToString(bytes32 x) constant returns (string) {
-    bytes memory bytesString = new bytes(32);
-    uint charCount = 0;
-    for (uint j = 0; j < 32; j++) {
-        byte char = byte(bytes32(uint(x) * 2 ** (8 * j)));
-        if (char != 0) {
-            bytesString[charCount] = char;
-            charCount++;
-        }
-    }
-    bytes memory bytesStringTrimmed = new bytes(charCount);
-    for (j = 0; j < charCount; j++) {
-        bytesStringTrimmed[j] = bytesString[j];
-    }
-    return string(bytesStringTrimmed);
-}
+
   
   function confirmAccess(bytes32 user_id, bytes32 fileid, bool accepted) onlyIfActive onlyByCreator returns(bytes32) {
       
@@ -187,7 +172,23 @@ contract Access{
   }
   
  
+  function printRequest(bytes32 userid, bytes32 fileid) constant returns (bytes32,bytes32,bool){
+     request r = acl[userid][fileid];
+     return(r.accesserid,r.fileid,r.status);
+  }
   
+  function printAllforFile(bytes32 fileid) constant returns (bytes32[],bytes32[],bool[]){
+      request[] r = file2requests[fileid];
+      bytes32[] memory a = new bytes32[](r.length);
+      bytes32[] memory b = new bytes32[](r.length);
+      bool[] memory c = new bool[](r.length);
+      for(uint i = 0; i <r.length;i++ ){
+          a[i] = r[i].accesserid;
+          b[i] = r[i].fileid;
+          c[i] = r[i].status;
+      }
+      return(a,b,c);
+  }
 
   
   function deactivateContract() onlyByCreator {
@@ -201,7 +202,7 @@ contract Manager {
     
     function Manager(){}
     
-    function createAccessContract (bytes32 userkey, bytes32 name) returns (bytes32){
+    function createAccessContract (bytes32 userkey, string name) returns (bytes32){
         bytes32 contractkey = sha256(userkey,name,msg.sender);
         Access a = new Access(contractkey,userkey,name);
          access_map[contractkey] = a.getContractAddress();
@@ -214,7 +215,7 @@ contract Manager {
         a.addFile(id);
     }
     
-    function callAddUser(bytes32 contractkey, bytes32 id, bytes32 name, address user_addr){
+    function callAddUser(bytes32 contractkey, bytes32 id, string name, address user_addr){
         address Access_Contract = access_map[contractkey];
         Access a = Access(Access_Contract);
         a.addUser(id, name,  user_addr);
