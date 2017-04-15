@@ -162,9 +162,11 @@ contract Access{
       acl[user_id][fileid].confirmed = accepted;
       if(acl[user_id][fileid].confirmed == true && acl[user_id][fileid].granted ==true ){
           acl[user_id][fileid].status = true;
+          acl[user_id][fileid].timestamp = now;
          requests[user_id].push(acl[user_id][fileid]);
   		 file2requests[fileid].push(acl[user_id][fileid]);
       }else{
+           acl[user_id][fileid].timestamp = now;
           requests[user_id].push(acl[user_id][fileid]);
   		 file2requests[fileid].push(acl[user_id][fileid]);
       }
@@ -177,14 +179,14 @@ contract Access{
      return(r.accesserid,r.fileid,r.status);
   }
   
-  function printAllforFile(bytes32 fileid) constant returns (bytes32[],bytes32[],bool[]){
+  function printAllforFile(bytes32 fileid) constant returns (bytes32[],uint[],bool[]){
       request[] r = file2requests[fileid];
       bytes32[] memory a = new bytes32[](r.length);
-      bytes32[] memory b = new bytes32[](r.length);
+      uint[] memory b = new uint[](r.length);
       bool[] memory c = new bool[](r.length);
       for(uint i = 0; i <r.length;i++ ){
           a[i] = r[i].accesserid;
-          b[i] = r[i].fileid;
+          b[i] = r[i].timestamp;
           c[i] = r[i].status;
       }
       return(a,b,c);
