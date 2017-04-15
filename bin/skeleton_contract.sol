@@ -12,7 +12,7 @@ contract Access{
     bytes32 adminkey;
 	bytes32 public contractkey;
 	bool contractStatus= true;
-
+    request[] allrequests;
 
 	///user(id) to file.id) to request
 	mapping(bytes32 => mapping( bytes32 =>request)) public acl;
@@ -23,9 +23,9 @@ contract Access{
 	//maps user.id to other attributes
 	mapping(bytes32 => user) idUsers;
 	//all requests directly per user
-	mapping(bytes32 => request[]) requests;
+	//mapping(bytes32 => request[]) requests;
 	//all requests directly per file
-	mapping(bytes32 => request[]) file2requests;
+	//mapping(bytes32 => request[]) file2requests;
 
 	//maps a file.id to other file attributes
 	mapping(bytes32 => file) idFiles;
@@ -88,6 +88,7 @@ contract Access{
 		contractkey = contractkey;
 		contractAddress = this;
 		contractStatus = true;
+		
 		timeout = 3000;
 	}
 
@@ -109,7 +110,6 @@ contract Access{
 	function addFile(bytes32 id) onlyIfActive{
 	 
 	 	idFiles[id] = file(id,now);
-	 
 	 	
 	}
 
@@ -163,34 +163,46 @@ contract Access{
       if(acl[user_id][fileid].confirmed == true && acl[user_id][fileid].granted ==true ){
           acl[user_id][fileid].status = true;
           acl[user_id][fileid].timestamp = now;
-         requests[user_id].push(acl[user_id][fileid]);
-  		 file2requests[fileid].push(acl[user_id][fileid]);
+        
+  		 allrequests.push(acl[user_id][fileid]);
       }else{
            acl[user_id][fileid].timestamp = now;
-          requests[user_id].push(acl[user_id][fileid]);
-  		 file2requests[fileid].push(acl[user_id][fileid]);
+  		  allrequests.push(acl[user_id][fileid]);
       }
       return fileid;
   }
   
  
-  function printRequest(bytes32 userid, bytes32 fileid) constant returns (bytes32,bytes32,bool){
-     request r = acl[userid][fileid];
-     return(r.accesserid,r.fileid,r.status);
+  function printAllRequests() constant returns (bytes32[],bytes32[],uint[],bool[]){
+    
+     bytes32[] memory a = new bytes32[](allrequests.length);
+      uint[] memory b = new uint[](allrequests.length);
+      bool[] memory c = new bool[](allrequests.length);
+      bytes32[] memory d = new bytes32[](allrequests.length);
+     for(uint j = 0; j <allrequests.length;j++ ){
+
+        request r = allrequests[j]; 
+          a[j] = r.accesserid;
+          b[j] = r.timestamp;
+          c[j] = r.status;
+          d[j] = r.fileid;
+     
+      }
+      return(a,d,b,c);
   }
   
-  function printAllforFile(bytes32 fileid) constant returns (bytes32[],uint[],bool[]){
-      request[] r = file2requests[fileid];
-      bytes32[] memory a = new bytes32[](r.length);
-      uint[] memory b = new uint[](r.length);
-      bool[] memory c = new bool[](r.length);
-      for(uint i = 0; i <r.length;i++ ){
-          a[i] = r[i].accesserid;
-          b[i] = r[i].timestamp;
-          c[i] = r[i].status;
-      }
-      return(a,b,c);
-  }
+//   function printAllforFile(bytes32 fileid) constant returns (bytes32[],uint[],bool[]){
+//       request[] r = file2requests[fileid];
+//       bytes32[] memory a = new bytes32[](r.length);
+//       uint[] memory b = new uint[](r.length);
+//       bool[] memory c = new bool[](r.length);
+//       for(uint i = 0; i <r.length;i++ ){
+//           a[i] = r[i].accesserid;
+//           b[i] = r[i].timestamp;
+//           c[i] = r[i].status;
+//       }
+//       return(a,b,c);
+//   }
 
   
   function deactivateContract() onlyByCreator {
