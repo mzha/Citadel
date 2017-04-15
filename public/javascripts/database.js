@@ -88,7 +88,7 @@ module.exports = {
         } else {
             var newContract = new Contract();
 
-            var address = makeHash(16);
+            var address = makeHash(32);
             // set the file params
             newContract.userId = userId;
             newContract.name = name;
